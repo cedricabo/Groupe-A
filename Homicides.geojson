@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Homicides",
+"features": [
+{ "type": "Feature", "properties": { "Incident": "Homicides", "jour": 20, "mois": 1, "an": 2022, "hrmn": "21:50:00", "dep": 2, "com": 2722, "agg": 2, "adr": "02200 Soissons, France", "Description": "Meutres d'un jeune homme. Selon les sources, il était impliqué dans une affaire de Drogue.", "Date": "2022-01-20" }, "geometry": { "type": "Point", "coordinates": [ 3.3137128, 49.3845306 ] } },
+{ "type": "Feature", "properties": { "Incident": "Homicides", "jour": 8, "mois": 11, "an": 2022, "hrmn": "10:24:00", "dep": 2, "com": 2722, "agg": 2, "adr": "Rue Flandre Dunkerque, 02200 Soissons, France", "Description": "Corps d'une jeune fille retrouvée sans vie dans son dommicile. ", "Date": "2022-11-08" }, "geometry": { "type": "Point", "coordinates": [ 3.32248874720721, 49.385245601916601 ] } }
+]
+}

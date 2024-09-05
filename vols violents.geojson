@@ -1,0 +1,7 @@
+{
+"type": "FeatureCollection",
+"name": "vols violents",
+"features": [
+{ "type": "Feature", "properties": { "Incident": "Vols violents sans arme", "jour": 13, "mois": 8, "an": 2022, "hrmn": "22:13:00", "dep": 2, "com": 2722, "agg": 2, "adr": "Boulevard du Tour de ville, Sq, du Dr Salmon, 02200 Soissons, France", "Description": "Vole armé d'une bijouterie à soissons", "Date": "2022-08-13" }, "geometry": { "type": "Point", "coordinates": [ 3.32591886513277, 49.370325571126202 ] } }
+]
+}

@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "coups et blessures intrafamiliaux",
+"features": [
+{ "type": "Feature", "properties": { "Incident": "Coups et blessures volontaires intrafamiliaux", "jour": 19, "mois": 6, "an": 2022, "hrmn": "11:27:00", "dep": 2, "com": 2722, "agg": 2, "adr": "10 Rue Lafayette, 02200 Soissons, France", "Description": "Un grand frère bat sauavgement son frère cadet.", "Date": "2022-06-19" }, "geometry": { "type": "Point", "coordinates": [ 3.31642091290966, 49.371670484739901 ] } },
+{ "type": "Feature", "properties": { "Incident": "Coups et blessures volontaires intrafamiliaux", "jour": 10, "mois": 8, "an": 2022, "hrmn": "13:47:00", "dep": 2, "com": 2722, "agg": 2, "adr": "6 Rue Charles Desboves, 02200 Soissons, France", "Description": "Une fille de 19 ans mets sa mère à sang suite à une dispute", "Date": "2022-08-10" }, "geometry": { "type": "Point", "coordinates": [ 3.32686453855334, 49.380210272300197 ] } }
+]
+}

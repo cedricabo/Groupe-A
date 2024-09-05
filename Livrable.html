@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Carte avec Plusieurs Couches GeoJSON</title>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://unpkg.com/@turf/turf/turf.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <style>
+        #map { height: 530px; 
+               width: 99%;
+            }
+        body{
+            background-color:#f4f6f6;
+        }
+        img{
+            height: 60px;
+            width: 55px;
+            margin-left: 20px;
+        }
+        header{
+            background-color:#212f3c ;
+            display: flex;
+            border-bottom: 5px;
+            border-style: inset;
+        border-color:#85929e;
+        }
+        h1{
+       font-size: 20px;
+       font-family: "Lato";
+       color:#85929e;
+       font-style: oblique;
+       margin-left: 60px;
+       font-weight: 900;
+       text-decoration:overline;
+        }
+       label.debut{
+        font-size: 15px;
+        font-weight: 800;
+        color:#85929e;
+        font-family: "Lato";
+        margin-bottom: 10px;
+        border-style: inset;
+        border-color:#85929e;
+        background-color:#f8f9f9;
+        margin-left: 10px;
+        
+       }
+       input.debut{
+        font-size: 15px;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-bottom: 10px;
+       }
+       label.fin{
+        font-size: 15px;
+        font-weight: 800;
+        color:#85929e;
+        font-family: "Lato";
+        margin-top: 5px;
+        margin-bottom: 5px;
+        border-style: inset;
+        border-color:#85929e;
+        margin-left: 10px;
+        background-color:#f8f9f9;
+       }
+       input.fin{
+        font-size: 15px;
+        padding-left: 5px;
+        padding-right: 5px;
+        margin-left: 25px;
+       }
+section {
+    display: flex;
+}
+section.fonctionnalite {
+    display: grid;
+}
+aside{
+    background-color:#212f3c;
+    border-bottom: 5px;
+    border-style: inset;
+    border-color:#85929e;
+}
+h2{
+    color:#85929e;
+    font-size: 20px;
+    padding: 0px;
+}
+h3{
+    color:#85929e;
+    font-size: 18px;
+    font-style: oblique;
+    margin-left: 10px;
+    border-color:#85929e;
+    border: none;
+    border-bottom: 2px solid #85929e;
+}
+div.fonctionnalite{
+    
+    display: flex;
+    margin-left: 15px;
+    border-color:#85929e;
+    border: none;
+    border-bottom: 5px solid #85929e;
+}
+div.filtrage{
+    display: flex;
+    margin-left: 15px;
+    border-color:#85929e;
+
+}
+button.recherche{
+    font-size: 15px;
+    font-family: "Lato";
+    font-weight: 800;
+    margin-left: 3px;
+    border-color:#85929e;
+    padding-left: 70px;
+    padding-right: 70px;
+    margin-bottom: 5px;
+    color:#85929e;
+}
+div.recherche{
+    display: flex;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    border: none;
+    border-bottom: 5px solid #85929e;
+    margin-bottom: 15px;
+    margin-left: 10px;
+}
+img.recherche{
+    height: 35px;
+    width: 30px;
+    
+}
+div.filtrage{
+    display: flex;
+}
+img.filtrage{
+    height: 35px;
+    width: 45px;
+    position: absolute;
+    bottom:500px;
+    left:250px;
+}
+img{
+    height: 35px;
+    width: 35px;
+    bottom: 25px;
+}
+button.afficherCluster{
+    padding-left: 25px;
+    padding-right: 25px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    font-size: 15px;
+    font-weight: 800;
+    color:#85929e;
+    font-family: "Lato";
+}
+button.masquerCluster{
+    padding-left: 23px;
+    padding-right: 23px;
+    margin-left: 10px;
+    margin-bottom: 5px;
+    font-size: 15px;
+    font-weight: 800;
+    color:#85929e;
+    font-family: "Lato";
+}
+div.cluster{
+    display: flex;
+    margin-left: 10px;
+}
+img.cluster{
+    height: 35px;
+    width: 45px;
+    position: absolute;
+    bottom:325px;
+    left:240px;
+}
+label{
+    font-size: 13.5px;
+    font-weight: 800;
+    color:#85929e;
+    font-family: "Lato";
+}
+div.rayon{
+    margin-left: 10px;
+    
+}
+div.distance{
+    margin-left: 10px;
+    margin-top:5px ;
+}
+div.effacer{
+    margin-left: 10px;
+    margin-top:5px ;
+}
+button.distance{
+    padding-left: 30px;
+    padding-right: 30px;
+    margin-left: 0px;
+    margin-bottom: 5px;
+    font-size: 15px;
+    font-weight: 800;
+    color:#85929e;
+    font-family: "Lato";
+}
+button.effacer{
+    padding-left: 33px;
+    padding-right: 33px;
+    margin-left: 0px;
+    margin-bottom: 5px;
+    font-size: 15px;
+    font-weight: 800;
+    color:#85929e;
+    font-family: "Lato";
+}
+div.calculDistance{
+    border: none;
+    border-bottom: 5px solid #85929e;
+    margin-bottom: 15px;
+    margin-left: 3px;
+}
+    </style>
+</head>
+<body>
+<header>
+    <img src="incident.png" alt="Logo de l'application">
+    <h1> APPLICATION WEB  DE VISUALISATION DES INCIDENTS URBAINS DE 2022 DE LA VILLE DE SOISSONS EN FRANCE </h1>
+</header>
+<section>
+    <aside>
+        <section class="fonctionnalite">
+            <div class="filtrage">  
+                <h2>Filtres des incidents</h2>
+                <img class="filtrage" src="filtrage-des-donnees (2).png" alt="icône de filtrage">
+            </div>
+            <form id="search-form">
+                <label  class="debut"for="start-date">Date de début :</label>
+                <input class="debut" type="date" id="start-date" />
+                <br>
+                <label class="fin" for="end-date">Date de fin :</label>
+                <input class="fin" type="date" id="end-date" />
+                <div class="recherche">
+                    <button class="recherche" type="submit" >Rechercher</button>
+                    <a href=""></a><img class="recherche"src="rechercher.png" alt="icône  de recherche">
+                </div>
+            </form>
+            <div id="map-controls">
+                <div class="cluster">
+                    <h2>Analyse spatiale</h2>
+                    <img class="cluster" src="analyse-spatiale.png" alt="">
+                </div>
+                <button class="afficherCluster" id="show-clusters">Afficher les clusters</button>
+                <button class="masquerCluster"id="hide-clusters">Masquer les clusters</button>
+                <br>
+                <div class="rayon">
+                    <label for="cluster-radius">Rayon cluster(m)</label>
+                    <input type="number" id="cluster-radius" min="100" max="5000" step="100" value="2000">
+                </div>
+                <div class="calculDistance">
+                    <div class="distance">
+                        <button class="distance" id="calculate-distance">Calcul de distance</button>
+                    </div>
+                    <div class="effacer">
+                        <button class="effacer" id="clear-points">Effacer les points</button>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>Retrouvez-nous</h3>
+                <a href="https://fr-fr.facebook.com/"><img src="facebook (1).png" alt="logo facebook"></a>
+                <a href="https://www.instagram.com/"><img src="instagram.png" alt="logo Instagram"></a>
+                <a href="https://www.linkedin.com/"><img src="linkedin (2).png" alt="logo linkedin"></a>
+                <a href="https://www.youtube.com/results?search_query=the+last+witch+hunter+1+vf"><img src="youtube.png" alt="logo youtube"></a>
+            </div>
+        </section>    
+    </aside>
+    <div id="map"></div>  
+</section>     
+<script>
+    // Initialisation de la carte
+    let map = L.map('map').setView([49.383623,3.337326], 10);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+     // Contours de la ville
+     fetch('soissons.geojson')
+            .then(response => response.json())
+            .then(data => {
+                L.geoJSON(data, {
+                    style: {
+                        color: "#34495e",
+                        weight: 5,
+                        opacity: 0.8,
+                    }
+                }).addTo(map);
+                map.fitBounds(L.geoJSON(data).getBounds());
+            });
+
+       // Données GeoJSON pour les accidents
+       const accident = {
+            "type": "FeatureCollection",
+            "features": [
+{ "type": "Feature", "properties": { "Incident": "Accident", "jour": 16, "mois": 11, "an": 2022, "hrmn": "18:15:00", "lum": 5, "dep": 2, "com": 2722, "agg": 2, "int": 3, "atm": 3, "col": 6, "adr": "8bis Boulevard Gambetta", "lat": 49.37734, "long": 3.33066, "Description": "Accident de circulation à 8bis Boulevard Gambetta", "Date": "2022-11-16" }, "geometry": { "type": "Point", "coordinates": [ 3.33066, 49.37734 ] } },
+{ "type": "Feature", "properties": { "Incident": "Accident", "jour": 22, "mois": 7, "an": 2022, "hrmn": "11:20:00", "lum": 1, "dep": 2, "com": 2722, "agg": 2, "int": 1, "atm": 1, "col": 1, "adr": "MAIL ( AVENUE DU )", "lat": 49.3855, "long": 3.32919, "Description": "Accident de circulation  à MAIL ", "Date": "2022-07-22" }, "geometry": { "type": "Point", "coordinates": [ 3.32919, 49.3855 ] } },
+{ "type": "Feature", "properties": { "Incident": "Accident", "jour": 28, "mois": 5, "an": 2022, "hrmn": "20:10:00", "lum": 1, "dep": 2, "com": 2722, "agg": 2, "int": 4, "atm": 1, "col": 2, "adr": "Boulevard Gambetta", "lat": 49.37748, "long": 3.33069, "Description": "Accident de circulation à Boulevard Gambetta", "Date": "2022-05-28" }, "geometry": { "type": "Point", "coordinates": [ 3.33069, 49.37748 ] } },
+{ "type": "Feature", "properties": { "Incident": "Accident", "jour": 27, "mois": 6, "an": 2022, "hrmn": "19:00:00", "lum": 1, "dep": 2, "com": 2722, "agg": 2, "int": 9, "atm": 1, "col": 3, "adr": "43 Avenue de Pasly", "lat": 49.38921, "long": 3.31311, "Description": "Accident de circulation au 43 Avenue de Pasly", "Date": "2022-06-27" }, "geometry": { "type": "Point", "coordinates": [ 3.31311, 49.38921 ] } },
+{ "type": "Feature", "properties": { "Incident": "Accident", "jour": 18, "mois": 6, "an": 2022, "hrmn": "10:10:00", "lum": 1, "dep": 2, "com": 2722, "agg": 2, "int": 1, "atm": 1, "col": 2, "adr": "45 Avenue de Laon", "lat": 49.3913, "long": 3.34088, "Description": "Accident de circulation au 45 Avenue de Laon", "Date": "2022-06-18" }, "geometry": { "type": "Point", "coordinates": [ 3.34088, 49.3913 ] } },
+{ "type": "Feature", "properties": { "Incident": "Accident", "jour": 16, "mois": 6, "an": 2022, "hrmn": "08:05:00", "lum": 1, "dep": 2, "com": 2722, "agg": 2, "int": 1, "atm": 1, "col": 6, "adr": "GEORGES CLEMENCEAU ( BOULEVARD)", "lat": 49.37869, "long": 3.30941, "Description": "Accident de circulation à GEORGES CLEMENCEAU ( BOULEVARD)", "Date": "2022-06-16" }, "geometry": { "type": "Point", "coordinates": [ 3.30941, 49.37869 ] } },
+{ "type": "Feature", "properties": { "Incident": "Accident", "jour": 16, "mois": 4, "an": 2022, "hrmn": "21:50:00", "lum": 5, "dep": 2, "com": 2722, "agg": 2, "int": 7, "atm": 1, "col": 3, "adr": "SAINT-CHRISTOPHE ( RUE )", "lat": 49.38198, "long": 3.32163, "Description": "Accident de circulation à SAINT-CHRISTOPHE ( RUE )", "Date": "2022-04-16" }, "geometry": { "type": "Point", "coordinates": [ 3.32163, 49.38198 ] } },
+{ "type": "Feature", "properties": { "Incident": "Accident", "jour": 6, "mois": 12, "an": 2022, "hrmn": "16:00:00", "lum": 1, "dep": 2, "com": 2722, "agg": 2, "int": 2, "atm": 1, "col": 6, "adr": "N/A", "lat": 49.37419, "long": 3.32607, "Description": "Accident de circulation ", "Date": "2022-12-06" }, "geometry": { "type": "Point", "coordinates": [ 3.32607, 49.37419 ] } },
+{ "type": "Feature", "properties": { "Incident": "Accident", "jour": 4, "mois": 5, "an": 2022, "hrmn": "17:35:00", "lum": 1, "dep": 2, "com": 2722, "agg": 2, "int": 6, "atm": 1, "col": 2, "adr": "RAYMONDE FIOLET ( AVENUE)", "lat": 49.36557, "long": 3.31978, "Description": "Accident de circulation à RAYMONDE FIOLET ( AVENUE)", "Date": "2022-05-04" }, "geometry": { "type": "Point", "coordinates": [ 3.31978, 49.36557 ] } },
+{ "type": "Feature", "properties": { "Incident": "Accident", "jour": 6, "mois": 10, "an": 2022, "hrmn": "20:45:00", "lum": 5, "dep": 2, "com": 2722, "agg": 2, "int": 3, "atm": 1, "col": 3, "adr": "27 Avenue de Laon", "lat": 49.38882, "long": 3.33712, "Description": "Accident de circulation au 27 Avenue de Laon ", "Date": "2022-10-06" }, "geometry": { "type": "Point", "coordinates": [ 3.33712, 49.38882 ] } }
+]
+        };
+        const coups_et_blessures_intrafamiliaux = {
+            "type": "FeatureCollection",
+            "features": 
+            [
+{ "type": "Feature", "properties": { "Incident": "Coups et blessures volontaires intrafamiliaux", "jour": 19, "mois": 6, "an": 2022, "hrmn": "11:27:00", "dep": 2, "com": 2722, "agg": 2, "adr": "10 Rue Lafayette, 02200 Soissons, France", "Description": "Un grand frère bat sauavgement son frère cadet.", "Date": "2022-06-19" }, "geometry": { "type": "Point", "coordinates": [ 3.31642091290966, 49.371670484739901 ] } },
+{ "type": "Feature", "properties": { "Incident": "Coups et blessures volontaires intrafamiliaux", "jour": 10, "mois": 8, "an": 2022, "hrmn": "13:47:00", "dep": 2, "com": 2722, "agg": 2, "adr": "6 Rue Charles Desboves, 02200 Soissons, France", "Description": "Une fille de 19 ans mets sa mère à sang suite à une dispute", "Date": "2022-08-10" }, "geometry": { "type": "Point", "coordinates": [ 3.32686453855334, 49.380210272300197 ] } }
+]  
+        };
+        const coups_et_blessures_volontaire = {
+            "type": "FeatureCollection",
+            "features": 
+            [
+{ "type": "Feature", "properties": { "Incident": "Coups et blessures volontaires", "jour": 7, "mois": 7, "an": 2022, "hrmn": "19:20:00", "dep": 2, "com": 2722, "agg": 2, "adr": "Rue Yvonne Basquin, 02200 Soissons, France", "Description": "Bagarres violentes de plusieurs jeunes occasionnant plusieurs blessés à soissons", "Date": "2022-07-07" }, "geometry": { "type": "Point", "coordinates": [ 3.31695456061528, 49.365216919473902 ] } },
+{ "type": "Feature", "properties": { "Incident": "Coups et blessures volontaires", "jour": 31, "mois": 4, "an": 2022, "hrmn": "18:14:00", "dep": 2, "com": 2722, "agg": 2, "adr": "02200 Soissons, France", "Description": "Un jeune sévèrement brutalisé dans les rues de soissons", "Date": "2022-04-30" }, "geometry": { "type": "Point", "coordinates": [ 3.31281831967489, 49.366759051126401 ] } }
+] 
+        };
+        const homicides = {
+            "type": "FeatureCollection",
+            "features": 
+            [
+{ "type": "Feature", "properties": { "Incident": "Homicides", "jour": 20, "mois": 1, "an": 2022, "hrmn": "21:50:00", "dep": 2, "com": 2722, "agg": 2, "adr": "02200 Soissons, France", "Description": "Meutres d'un jeune homme. Selon les sources, il était impliqué dans une affaire de Drogue.", "Date": "2022-01-20" }, "geometry": { "type": "Point", "coordinates": [ 3.3137128, 49.3845306 ] } },
+{ "type": "Feature", "properties": { "Incident": "Homicides", "jour": 8, "mois": 11, "an": 2022, "hrmn": "10:24:00", "dep": 2, "com": 2722, "agg": 2, "adr": "Rue Flandre Dunkerque, 02200 Soissons, France", "Description": "Corps d'une jeune fille retrouvée sans vie dans son dommicile. ", "Date": "2022-11-08" }, "geometry": { "type": "Point", "coordinates": [ 3.32248874720721, 49.385245601916601 ] } }
+]
+        };
+        const incendie = {
+            "type": "FeatureCollection",
+            "features": 
+            [
+{ "type": "Feature", "properties": { "Incident": "Incendie", "jour": 12, "mois": 11, "an": 2022, "hrmn": "12:50:00", "dep": 2, "com": 2722, "agg": 2, "adr": "7 Rue du Stade, 02880 Crouy, France", "Description": "Incendie d'un garages automobiles à soissons", "Date": "2022-11-12" }, "geometry": { "type": "Point", "coordinates": [ 3.35449604961088, 49.3973014906746 ] } },
+{ "type": "Feature", "properties": { "Incident": "Incendie", "jour": 3, "mois": 5, "an": 2022, "hrmn": "16:45:00", "dep": 2, "com": 2722, "agg": 2, "adr": "02200 Soissons, France", "Description": "Incendie d'une voiture à soissons", "Date": "2022-05-03" }, "geometry": { "type": "Point", "coordinates": [ 3.3209238, 49.3867407 ] } },
+{ "type": "Feature", "properties": { "Incident": "Incendie", "jour": 14, "mois": 9, "an": 2022, "hrmn": "21:43:00", "dep": 2, "com": 2722, "agg": 2, "adr": "Belleu", "Description": "Incendie dans un magasin à proche de soissons", "Date": "2022-09-14" }, "geometry": { "type": "Point", "coordinates": [ 3.336233310615883, 49.362779013580266 ] } },
+{ "type": "Feature", "properties": { "Incident": "Incendie", "jour": 4, "mois": 8, "an": 2022, "hrmn": "09:57:00", "dep": 2, "com": 2722, "agg": 2, "adr": "Villeneuve saint-germain", "Description": "Incendie des barques à poubelles dans les rues de soissons", "Date": "2022-08-04" }, "geometry": { "type": "Point", "coordinates": [ 3.358978143686965, 49.379801876067432 ] } }
+]
+        };
+        const violences_sexuelles = {
+            "type": "FeatureCollection",
+            "features": 
+            [
+{ "type": "Feature", "properties": { "Incident": "Violences sexuelles", "jour": 10, "mois": 2, "an": 2022, "hrmn": "14:14:00", "dep": 2, "com": 2722, "agg": 2, "adr": "4 Av, de Château-Thierry, 02200 Soissons, France", "Description": "Viol d'une jeune fille de 19 ans qui travaillais dans un bar à soissons", "Date": "2022-02-10" }, "geometry": { "type": "Point", "coordinates": [ 3.32841781348308, 49.374317252831297 ] } },
+{ "type": "Feature", "properties": { "Incident": "Violences sexuelles", "jour": 9, "mois": 1, "an": 2022, "hrmn": "22:58:00", "dep": 2, "com": 2722, "agg": 2, "adr": "13 Av, de Reims, 02200 Soissons, France", "Description": "Attouchements sexuels d'une mère de 1 enfant dans une superette.", "Date": "2022-01-09" }, "geometry": { "type": "Point", "coordinates": [ 3.33570254294986, 49.376201097521097 ] } }
+]
+        };
+        const vols_armées = {
+            "type": "FeatureCollection",
+            "features": 
+            [
+{ "type": "Feature", "properties": { "Incident": "Vols avec armes", "jour": 21, "mois": 6, "an": 2022, "hrmn": "17:14:00", "dep": 2, "com": 2722, "agg": 2, "adr": "57 Av, du Général de Gaulle, 02200 Soissons, France", "Description": "Vols à main armé.", "Date": "2022-06-21" }, "geometry": { "type": "Point", "coordinates": [ 3.33586297408049, 49.371338666447301 ] } }
+]
+        };
+        const vols_violents = {
+            "type": "FeatureCollection",
+            "features": 
+            [
+{ "type": "Feature", "properties": { "Incident": "Vols violents sans arme", "jour": 13, "mois": 8, "an": 2022, "hrmn": "22:13:00", "dep": 2, "com": 2722, "agg": 2, "adr": "Boulevard du Tour de ville, Sq, du Dr Salmon, 02200 Soissons, France", "Description": "Vole armé d'une bijouterie à soissons", "Date": "2022-08-13" }, "geometry": { "type": "Point", "coordinates": [ 3.32591886513277, 49.370325571126202 ] } }
+]
+        };
+        // Création des icônes pour chaque type d'incident
+const accidentIcon = L.icon({
+    iconUrl: 'accident-de-voiture.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
+const coups_et_blessures_intrafamiliauxIcon = L.icon({
+    iconUrl: 'blessure (1).png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
+const coups_et_blessures_volontaireIcon = L.icon({
+    iconUrl: 'blessure.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
+const homicidesIcon = L.icon({
+    iconUrl: 'tuer.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
+const incendieIcon = L.icon({
+    iconUrl: 'batiment.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
+const violences_sexuellesIcon = L.icon({
+    iconUrl: 'femme.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
+const vols_arméesIcon = L.icon({
+    iconUrl: 'terroriste.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
+const vols_violentsIcon = L.icon({
+    iconUrl: 'voleur.png',
+    iconSize: [32, 32],
+    iconAnchor: [16, 32],
+    popupAnchor: [0, -32]
+});
+// Fonction qui est exécutée pour chaque feature la description.
+function onEachFeature(feature, layer) {
+    if (feature.properties) {
+        let popupContent = "<strong>Type:</strong> " + feature.properties.Incident + "<br>" +
+                           "<strong>Description:</strong> " + feature.properties.Description + "<br>" +
+                           "<strong>Adresse:</strong> " + feature.properties.adr + "<br>" +
+                           "<strong>Date:</strong> " + feature.properties.jour + "/" + feature.properties.mois + "/" + feature.properties.an + "<br>" +
+                           "<strong>Heure:</strong> " + feature.properties.hrmn;
+        layer.bindPopup(popupContent);
+    }
+}
+// Ajout des couches GeoJSON avec les popups
+L.geoJSON(accident, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, { icon: accidentIcon });
+    },
+    onEachFeature: onEachFeature
+}).addTo(map);
+L.geoJSON(coups_et_blessures_intrafamiliaux, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, { icon: coups_et_blessures_intrafamiliauxIcon });
+    },
+    onEachFeature: onEachFeature
+}).addTo(map);
+L.geoJSON(coups_et_blessures_volontaire, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, { icon: coups_et_blessures_volontaireIcon });
+    },
+    onEachFeature: onEachFeature
+}).addTo(map);
+L.geoJSON(homicides, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, { icon: homicidesIcon });
+    },
+    onEachFeature: onEachFeature
+}).addTo(map);
+L.geoJSON(incendie, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, { icon: incendieIcon });
+    },
+    onEachFeature: onEachFeature
+}).addTo(map);
+L.geoJSON(violences_sexuelles, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, { icon: violences_sexuellesIcon });
+    },
+    onEachFeature: onEachFeature
+}).addTo(map);
+L.geoJSON(vols_armées, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, { icon: vols_arméesIcon });
+    },
+    onEachFeature: onEachFeature
+}).addTo(map);
+L.geoJSON(vols_violents, {
+    pointToLayer: function (feature, latlng) {
+        return L.marker(latlng, { icon: vols_violentsIcon });
+    },
+    onEachFeature: onEachFeature
+}).addTo(map);
+function filterByDate(features, startDate, endDate) {
+    return features.filter(feature => {
+        const incidentDate = new Date(feature.properties.Date);
+        return incidentDate >= new Date(startDate) && incidentDate <= new Date(endDate);
+    });
+}
+document.getElementById('search-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+    const startDate = document.getElementById('start-date').value;
+    const endDate = document.getElementById('end-date').value;
+    if (startDate && endDate) {
+        // Filtrer chaque couche GeoJSON par date
+        const filteredAccidents = filterByDate(accident.features, startDate, endDate);
+        const filteredCoupsEtBlessuresIntrafamiliaux = filterByDate(coups_et_blessures_intrafamiliaux.features, startDate, endDate);
+        const filteredCoupsEtBlessuresVolontaire = filterByDate(coups_et_blessures_volontaire.features, startDate, endDate);
+        const filteredHomicides = filterByDa-te(homicides.features, startDate, endDate);
+        const filteredIncendie = filterByDate(incendie.features, startDate, endDate);
+        const filteredViolencesSexuelles = filterByDate(violences_sexuelles.features, startDate, endDate);
+        const filteredVolsArmes = filterByDate(vols_armées.features, startDate, endDate);
+        const filteredVolsViolents = filterByDate(vols_violents.features, startDate, endDate);
+        // Effacer les anciennes couches
+        map.eachLayer(layer => {
+            if (layer instanceof L.GeoJSON) {
+                map.removeLayer(layer);
+            }
+        });
+        // Ajouter les nouvelles couches filtrées
+        L.geoJSON(filteredAccidents, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: accidentIcon}).bindPopup(feature.properties.Description);
+            }
+        }).addTo(map);
+        L.geoJSON(filteredCoupsEtBlessuresIntrafamiliaux, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: coups_et_blessures_intrafamiliauxIcon}).bindPopup(feature.properties.Description);
+            }
+        }).addTo(map);
+        L.geoJSON(filteredCoupsEtBlessuresVolontaire, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: coups_et_blessures_volontaireIcon}).bindPopup(feature.properties.Description);
+            }
+        }).addTo(map);
+        L.geoJSON(filteredHomicides, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: homicidesIcon}).bindPopup(feature.properties.Description);
+            }
+        }).addTo(map);
+        L.geoJSON(filteredIncendie, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: incendieIcon}).bindPopup(feature.properties.Description);
+            }
+        }).addTo(map);
+
+        L.geoJSON(filteredViolencesSexuelles, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: violences_sexuellesIcon}).bindPopup(feature.properties.Description);
+            }
+        }).addTo(map);
+        L.geoJSON(filteredVolsArmes, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: vols_arméesIcon}).bindPopup(feature.properties.Description);
+            }
+        }).addTo(map);
+        L.geoJSON(filteredVolsViolents, {
+            pointToLayer: function (feature, latlng) {
+                return L.marker(latlng, {icon: vols_violentsIcon}).bindPopup(feature.properties.Description);
+            }
+        }).addTo(map);
+    } else {
+        alert("Veuillez sélectionner une plage de dates valide.");
+    }
+});
+// ajout du cluster
+let clusterLayer;
+let clusterRadius = 2000; 
+function analyzeIncidents() {
+    const allPoints = [
+        ...accident.features,
+        ...coups_et_blessures_intrafamiliaux.features,
+        ...coups_et_blessures_volontaire.features,
+        ...homicides.features,
+        ...incendie.features,
+        ...violences_sexuelles.features,
+        ...vols_armées.features,
+        ...vols_violents.features
+    ];
+    const points = turf.featureCollection(allPoints);
+    const clustered = turf.clustersKmeans(points, { numberOfClusters: 5 });
+    if (clusterLayer) {
+        map.removeLayer(clusterLayer);
+    }
+    clusterLayer = L.layerGroup();
+    
+    clustered.features.forEach((cluster, index) => {
+        const coord = cluster.geometry.coordinates;
+        L.circle([coord[1], coord[0]], {
+            color: 'purple',
+            fillColor: '#800080',
+            fillOpacity: 0.5,
+            radius: clusterRadius
+        }).addTo(clusterLayer);
+    });
+}
+
+function showClusters() {
+    analyzeIncidents();
+    clusterLayer.addTo(map);
+}
+function hideClusters() {
+    if (clusterLayer) {
+        map.removeLayer(clusterLayer);
+    }
+}
+document.getElementById('show-clusters').addEventListener('click', showClusters);
+document.getElementById('hide-clusters').addEventListener('click', hideClusters);
+document.getElementById('cluster-radius').addEventListener('input', function() {
+    clusterRadius = parseInt(this.value);
+    if (clusterLayer && map.hasLayer(clusterLayer)) {
+        showClusters(); 
+    }
+});
+let firstPoint = null;
+let secondPoint = null;
+let distanceMode = false;
+let markers = [];
+const calculateDistanceBtn = document.getElementById('calculate-distance');
+const clearPointsBtn = document.getElementById('clear-points');
+calculateDistanceBtn.addEventListener('click', function() {
+    if (!distanceMode) {
+        alert("Veuillez cliquez sur le point");
+        startDistanceMode();
+    } else {
+        resetDistanceMode();
+    }
+});
+clearPointsBtn.addEventListener('click', function() {
+    clearPoints();
+    updateButtonStates();
+});
+function startDistanceMode() {
+    distanceMode = true;
+    calculateDistanceBtn.textContent = "Annuler le calcul";
+    map.dragging.disable();
+    map.touchZoom.disable();
+    map.doubleClickZoom.disable();
+    map.scrollWheelZoom.disable();
+    updateButtonStates();
+}
+function resetDistanceMode() {
+    distanceMode = false;
+    calculateDistanceBtn.textContent = "Calculer la distance";
+    map.dragging.enable();
+    map.touchZoom.enable();
+    map.doubleClickZoom.enable();
+    map.scrollWheelZoom.enable();
+    clearPoints();
+    updateButtonStates();
+}
+function clearPoints() {
+    firstPoint = null;
+    secondPoint = null;
+    markers.forEach(marker => map.removeLayer(marker));
+    markers = [];
+    if (distanceMode) {
+        calculateDistanceBtn.textContent = "Annuler le calcul";
+    }
+}
+function updateButtonStates() {
+    clearPointsBtn.disabled = markers.length === 0;
+}
+map.on('click', function(e) {
+    if (!distanceMode) return;
+
+    if (!firstPoint) {
+        firstPoint = e.latlng;
+        let marker = L.marker(firstPoint).addTo(map).bindPopup("Premier point sélectionné").openPopup();
+        markers.push(marker);
+        calculateDistanceBtn.textContent = "Annuler le calcul";
+    } else if (!secondPoint) {
+        secondPoint = e.latlng;
+        let marker = L.marker(secondPoint).addTo(map).bindPopup("Deuxième point sélectionné").openPopup();
+        markers.push(marker);
+
+        setTimeout(() => {
+            let distance = firstPoint.distanceTo(secondPoint) / 1000;
+            alert("La distance entre les deux points est de " + distance.toFixed(2) + " km.");
+            resetDistanceMode();
+        }, 100);
+    }
+    updateButtonStates();
+});
+// Initialisation de l'état des boutons
+updateButtonStates();
+</script>
+</body>
+</html>

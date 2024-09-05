@@ -1,0 +1,10 @@
+{
+"type": "FeatureCollection",
+"name": "incendie",
+"features": [
+{ "type": "Feature", "properties": { "Incident": "Incendie", "jour": 12, "mois": 11, "an": 2022, "hrmn": "12:50:00", "dep": 2, "com": 2722, "agg": 2, "adr": "7 Rue du Stade, 02880 Crouy, France", "Description": "Incendie d'un garages automobiles à soissons", "Date": "2022-11-12" }, "geometry": { "type": "Point", "coordinates": [ 3.35449604961088, 49.3973014906746 ] } },
+{ "type": "Feature", "properties": { "Incident": "Incendie", "jour": 3, "mois": 5, "an": 2022, "hrmn": "16:45:00", "dep": 2, "com": 2722, "agg": 2, "adr": "02200 Soissons, France", "Description": "Incendie d'une voiture à soissons", "Date": "2022-05-03" }, "geometry": { "type": "Point", "coordinates": [ 3.3209238, 49.3867407 ] } },
+{ "type": "Feature", "properties": { "Incident": "Incendie", "jour": 14, "mois": 9, "an": 2022, "hrmn": "21:43:00", "dep": 2, "com": 2722, "agg": 2, "adr": "Belleu", "Description": "Incendie dans un magasin à proche de soissons", "Date": "2022-09-14" }, "geometry": { "type": "Point", "coordinates": [ 3.336233310615883, 49.362779013580266 ] } },
+{ "type": "Feature", "properties": { "Incident": "Incendie", "jour": 4, "mois": 8, "an": 2022, "hrmn": "09:57:00", "dep": 2, "com": 2722, "agg": 2, "adr": "Villeneuve saint-germain", "Description": "Incendie des barques à poubelles dans les rues de soissons", "Date": "2022-08-04" }, "geometry": { "type": "Point", "coordinates": [ 3.358978143686965, 49.379801876067432 ] } }
+]
+}

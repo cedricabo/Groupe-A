@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Violences sexuelles",
+"features": [
+{ "type": "Feature", "properties": { "Incident": "Violences sexuelles", "jour": 10, "mois": 2, "an": 2022, "hrmn": "14:14:00", "dep": 2, "com": 2722, "agg": 2, "adr": "4 Av, de Château-Thierry, 02200 Soissons, France", "Description": "Viol d'une jeune fille de 19 ans qui travaillais dans un bar à soissons", "Date": "2022-02-10" }, "geometry": { "type": "Point", "coordinates": [ 3.32841781348308, 49.374317252831297 ] } },
+{ "type": "Feature", "properties": { "Incident": "Violences sexuelles", "jour": 9, "mois": 1, "an": 2022, "hrmn": "22:58:00", "dep": 2, "com": 2722, "agg": 2, "adr": "13 Av, de Reims, 02200 Soissons, France", "Description": "Attouchements sexuels d'une mère de 1 enfant dans une superette.", "Date": "2022-01-09" }, "geometry": { "type": "Point", "coordinates": [ 3.33570254294986, 49.376201097521097 ] } }
+]
+}

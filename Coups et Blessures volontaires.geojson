@@ -1,0 +1,8 @@
+{
+"type": "FeatureCollection",
+"name": "Coups et Blessures volontaires",
+"features": [
+{ "type": "Feature", "properties": { "Incident": "Coups et blessures volontaires", "jour": 7, "mois": 7, "an": 2022, "hrmn": "19:20:00", "dep": 2, "com": 2722, "agg": 2, "adr": "Rue Yvonne Basquin, 02200 Soissons, France", "Description": "Bagarres violentes de plusieurs jeunes occasionnant plusieurs blessés à soissons", "Date": "2022-07-07" }, "geometry": { "type": "Point", "coordinates": [ 3.31695456061528, 49.365216919473902 ] } },
+{ "type": "Feature", "properties": { "Incident": "Coups et blessures volontaires", "jour": 31, "mois": 4, "an": 2022, "hrmn": "18:14:00", "dep": 2, "com": 2722, "agg": 2, "adr": "02200 Soissons, France", "Description": "Un jeune sévèrement brutalisé dans les rues de soissons", "Date": "2022-04-30" }, "geometry": { "type": "Point", "coordinates": [ 3.31281831967489, 49.366759051126401 ] } }
+]
+}

@@ -1,0 +1,7 @@
+{
+"type": "FeatureCollection",
+"name": "vols avec armes",
+"features": [
+{ "type": "Feature", "properties": { "Incident": "Vols avec armes", "jour": 21, "mois": 6, "an": 2022, "hrmn": "17:14:00", "dep": 2, "com": 2722, "agg": 2, "adr": "57 Av, du Général de Gaulle, 02200 Soissons, France", "Description": "Vols à main armé.", "Date": "2022-06-21" }, "geometry": { "type": "Point", "coordinates": [ 3.33586297408049, 49.371338666447301 ] } }
+]
+}
