@@ -25,7 +25,7 @@ Ce travail doit être améliorer pour servir de base pour :
 ![image](https://github.com/user-attachments/assets/ad92867b-bc02-4a75-bfe4-231bae1c0f26)
 
 4. Filtrage des données :
-[^3]: La plateforme fournit  des outils pour filtrer les incidents.
+   - La plateforme fournit  des outils pour filtrer les incidents.
 
 ![image](https://github.com/user-attachments/assets/de766d9b-2000-419d-95d8-b7808cd272e2) 
 ![image](https://github.com/user-attachments/assets/fe893803-554b-4960-ad71-0f8159c45d18)
