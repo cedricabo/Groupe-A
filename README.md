@@ -26,7 +26,7 @@ Ce travail doit être améliorer pour servir de base pour :
 
 4. Filtrage des données :
 [^3]: La plateforme fournit  des outils pour filtrer les incidents.
-[^4]:![image](https://github.com/user-attachments/assets/de766d9b-2000-419d-95d8-b7808cd272e2) [^5] ![image](https://github.com/user-attachments/assets/fe893803-554b-4960-ad71-0f8159c45d18)
+![image](https://github.com/user-attachments/assets/de766d9b-2000-419d-95d8-b7808cd272e2)  ![image](https://github.com/user-attachments/assets/fe893803-554b-4960-ad71-0f8159c45d18)
 [^6]:Cette application combine ainsi des fonctionnalités de cartographie, d'analyse spatiale et d'outils de mesure pour offrir une exploration approfondie des incidents urbains à Soissons. Elle vise à fournir aux utilisateurs une compréhension claire et interactive de la distribution et des caractéristiques des événements survenus dans la ville en 2022.
 
 # Matériels ou Outils,technologies et données utilisés
