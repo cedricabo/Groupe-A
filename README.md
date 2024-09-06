@@ -26,17 +26,21 @@ Ce travail doit être améliorer pour servir de base pour :
 
 4. Filtrage des données :
 [^3]: La plateforme fournit  des outils pour filtrer les incidents.
-![image](https://github.com/user-attachments/assets/de766d9b-2000-419d-95d8-b7808cd272e2)  ![image](https://github.com/user-attachments/assets/fe893803-554b-4960-ad71-0f8159c45d18)
-[^6]:Cette application combine ainsi des fonctionnalités de cartographie, d'analyse spatiale et d'outils de mesure pour offrir une exploration approfondie des incidents urbains à Soissons. Elle vise à fournir aux utilisateurs une compréhension claire et interactive de la distribution et des caractéristiques des événements survenus dans la ville en 2022.
+
+![image](https://github.com/user-attachments/assets/de766d9b-2000-419d-95d8-b7808cd272e2) 
+![image](https://github.com/user-attachments/assets/fe893803-554b-4960-ad71-0f8159c45d18)
+Cette application combine ainsi des fonctionnalités de cartographie, d'analyse spatiale et d'outils de mesure pour offrir une exploration approfondie des incidents urbains à Soissons. Elle vise à fournir aux utilisateurs une compréhension claire et interactive de la distribution et des caractéristiques des événements survenus dans la ville en 2022.
 
 # Matériels ou Outils,technologies et données utilisés
 Pour ce projet, nous avons utilisé uniquement
 + un ordinateur
 - une connexion internet
++ Visual studio code
 * HTML
 + CSS
 - Javascript et ses bibliothèques (Leaflet et Turf)
 * Les données issus de Opendata France
+- GitHub
 
 # Auteurs
 ce projet a été réalisé par
